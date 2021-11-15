@@ -18,11 +18,11 @@ v0.2 - backup, download and status checks with instructions.
 
 ### Instructions
 
-Edit github_migrator and add access token, organization name, and username
+Edit github_migrator and add access token, organization name, and username. Provide execute permission and call the script from working directory.
 
 `./github_migrator --help`
 
-Available commands are backup,download,status and help.
+Available commands are backup, download, status and help. Avoid running backup more than once as it creates seperate intances of backup on server side.
 
 #### Help with instructions
 
@@ -31,7 +31,7 @@ Available commands are backup,download,status and help.
 #### Backup all repositories 
 `./github_migrator --backup`
 
-Note: Do not run 'download' more than once to avoid duplicates.
+Note: Do not run 'backup' more than once to avoid duplicates.
 
 #### Check status of backups
 `./github_migrator --status`
