@@ -8,8 +8,8 @@ Available commands - backup, download, status and help.
 v0.2 - backup, download and status checks with instructions.
 
 ### Dependencies
-1. Github Access Token generated as owner of the organization
-2. curl command
+1. Github Access Token generated as owner of the organization.
+2. curl
 
 ### Download and give execute permission
 `wget https://raw.githubusercontent.com/adfolks/scripts/main/github_migrator`
@@ -40,5 +40,5 @@ Note: Do not run 'backup' more than once to avoid duplicates.
 `./github_migrator --download`
 
 ### Roadmap
-1. Add restore commands
-2. Add clean up of archives on github end after backups
+1. Add restore commands.
+2. Add clean up of archives on github end after backups.
