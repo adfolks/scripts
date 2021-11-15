@@ -42,3 +42,4 @@ Note: Do not run 'backup' more than once to avoid duplicates.
 ### Roadmap
 1. Add restore commands.
 2. Add clean up of archives on github end after backups.
+3. Accept token and username as arguments.
