@@ -2,20 +2,26 @@
 A bash script to migrate all private/public repositories under an organization, and download archives in a single go, for restoring on to github enterprise or github.com.
 Backups are downloaded and placed in working directory. Github access token required as owner of the organization.
 
-Available commands - backup, download, status and help.
+Available commands - backup, download, status, delete and help.
 
 ## Changelog
 v0.2 - backup, download and status checks with instructions.
+
 v0.3 - add delete archive option.
 
 ## Dependencies
 1. Github Access Token generated as owner of the organization.
 2. curl
 
-## Download and give execute permission
-`wget https://raw.githubusercontent.com/adfolks/scripts/main/github-migrator`
+## How to
+
+`git clone git@github.com:adfolks/scripts.git`
+
+`cd scripts`
 
 `chmod +x ./github-migrator`
+
+`./github-migrator --help`
 
 ### Instructions
 
