@@ -3,8 +3,8 @@
 # Requires curl command, github access token generated as Owner.
 # Add organization, access token and username to below fields before proceeding.
 # Run ./github_migrator --help for instructions.
-# Do not run --backup more than once to avoid multiple instances of backup on server side.
-# v0.2
+# Avoid running --backup more than once to avoid multiple instances of backup on server side.
+# v0.3
 
 set -e
 ORGANIZATION=""
@@ -31,7 +31,7 @@ if [ "$1" = "--backup" ] || [ "$1" = "backup" ] && [ -n "$ORGANIZATION" ] && [ -
 			fi
 			done
 	elif [ "$1" = "--download" ] || [ "$1" = "download" ] && [ -n "$ORGANIZATION" ] && [ -n "$GITHUB_ACCESS_TOKEN" ] && [ -n "$GITHUB_USERNAME" ]; then
-	 		backup_status > /dev/null
+	 		backup_status >/dev/null 2>&1
 			for url in `grep exported ./migration-status | awk '{print $3}'`; do
 					for name in `grep $url ./migration-status | awk '{print $2}' | cut -d'/' -f2`; do 
 						if [ ! -f ./migration_archive_$name.tar.gz ]; then
@@ -42,13 +42,20 @@ if [ "$1" = "--backup" ] || [ "$1" = "backup" ] && [ -n "$ORGANIZATION" ] && [ -
 					done
 			done
 	elif [ "$1" = "--status" ] || [ "$1" = "status" ] && [ -n "$ORGANIZATION" ] && [ -n "$GITHUB_ACCESS_TOKEN" ] && [ -n "$GITHUB_USERNAME" ]; then backup_status	
+	elif [ "$1" = "--delete" ] || [ "$1" = "status" ] && [ -n "$ORGANIZATION" ] && [ -n "$GITHUB_ACCESS_TOKEN" ] && [ -n "$GITHUB_USERNAME" ]; then
+		echo "Deleting all backup archives from github.com .."
+		backup_status >/dev/null 2>&1
+		for i in `cat ./migration-status | awk '{print $3}'`; do
+			curl -s -H "Authorization: token $GITHUB_ACCESS_TOKEN" -X DELETE -H "Accept: application/vnd.github.v3+json" $i
+		done
 	elif [ "$1" = "--help" ] || [ "$1" = "help" ]; then
-	echo "Instructions"
-	echo "------------"
-	echo "Requires curl command."
-	echo "Before proceeding, edit this script and add Organization, Access Token (as owner) and Username."
-	echo "Usage: ./github_migrator {backup, download,status}"
-	echo "Eg. ./github_migrator --status"
-	echo "Do not run --backup more than once - to avoid duplicates."
-	else echo "Please run with one of the arguments and by adding Organization, Access Token (as owner) and Username. Check --help for details."
+		echo "Instructions"
+		echo "------------"
+		echo "Requires curl command."
+		echo "Before proceeding, edit this script and add Organization, Access Token (as owner) and Username."
+		echo "Usage: ./github_migrator {backup, download, status, delete}"
+		echo "Eg. ./github_migrator --status"
+		echo "Avoid running --backup more than once to avoid duplicates."
+	else 
+		echo "Please run with one of the arguments and by adding Organization, Access Token (as owner) and Username. Check --help for more details."
 fi
