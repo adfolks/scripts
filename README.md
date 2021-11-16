@@ -39,7 +39,13 @@ Note: Do not run 'backup' more than once to avoid duplicates.
 #### Download all exported backups to working directory
 `./github_migrator --download`
 
+#### Delete all current backup archives from Github.com
+./github_migrator --delete
+
+This will delete all current backup migration archives from github.com end, useful to clean up after download, or to start anew.
+Alternately migration archives are automatically deleted after seven days.
+
 ### Roadmap
 1. Add restore commands.
-2. Add clean up of archives on github end after backups.
+2. Add clean up of archives on github end after backups. #done
 3. Accept token and username as arguments.
