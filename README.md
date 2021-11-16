@@ -1,4 +1,4 @@
-## github_migrator
+## github-migrator
 A bash script to migrate all private/public repositories under an organization, and download archives in a single go, for restoring on to github enterprise or github.com.
 Backups are downloaded and placed in working directory. Github access token required as owner of the organization.
 
@@ -12,35 +12,35 @@ v0.2 - backup, download and status checks with instructions.
 2. curl
 
 ### Download and give execute permission
-`wget https://raw.githubusercontent.com/adfolks/scripts/main/github_migrator`
+`wget https://raw.githubusercontent.com/adfolks/scripts/main/github-migrator`
 
-`chmod +x ./github_migrator`
+`chmod +x ./github-migrator`
 
 ### Instructions
 
-Edit github_migrator and add access token, organization name, and username. Provide execute permission and call the script from working directory.
+Edit github-migrator and add access token, organization name, and username. Provide execute permission and call the script from working directory.
 
-`./github_migrator --help`
+`./github-migrator --help`
 
 Available commands are backup, download, status and help. Avoid running backup more than once as it creates seperate intances of backup on server side.
 
 #### Help with instructions
 
-`./github_migrator --help`
+`./github-migrator --help`
 
 #### Backup all repositories 
-`./github_migrator --backup`
+`./github-migrator --backup`
 
 Note: Do not run 'backup' more than once to avoid duplicates.
 
 #### Check status of backups
-`./github_migrator --status`
+`./github-migrator --status`
 
 #### Download all exported backups to working directory
-`./github_migrator --download`
+`./github-migrator --download`
 
 #### Delete all current backup archives from Github.com
-./github_migrator --delete
+./github-migrator --delete
 
 This will delete all current backup migration archives from github.com end, useful to clean up after download, or to start anew.
 Alternately migration archives are automatically deleted after seven days.

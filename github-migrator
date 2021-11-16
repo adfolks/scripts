@@ -2,7 +2,7 @@
 # Script to create backup of github private/public repositories under organization and download as archives
 # Requires curl command, github access token generated as Owner.
 # Add organization, access token and username to below fields before proceeding.
-# Run ./github_migrator --help for instructions.
+# Run ./github-migrator --help for instructions.
 # Avoid running --backup more than once to avoid multiple instances of backup on server side.
 # v0.3
 
@@ -21,7 +21,7 @@ backup_status()
 }
 
 if [ "$1" = "--backup" ] || [ "$1" = "backup" ] && [ -n "$ORGANIZATION" ] && [ -n "$GITHUB_ACCESS_TOKEN" ] && [ -n "$GITHUB_USERNAME" ] ; then
-			echo "Initiating backup for all repositories in $ORGANIZATION, you can run github_migrator --status to check backup status. Avoid running --backup more than once to avoid duplicates."
+			echo "Initiating backup for all repositories in $ORGANIZATION, you can run github-migrator --status to check backup status. Avoid running --backup more than once to avoid duplicates."
 			for repo in `curl -s -H "Authorization: token $GITHUB_ACCESS_TOKEN" -H "Accept: application/vnd.github.v3+json" https://api.github.com/orgs/$ORGANIZATION/repos | grep '"full_name"' | awk '{print $2}' | cut -d'/' -f2 | cut -d'"' -f1`; do
 			if [ -z $repo ]; then 
 				echo "Backup could not be initiated. Please try again after checking dependencies." 
@@ -53,8 +53,8 @@ if [ "$1" = "--backup" ] || [ "$1" = "backup" ] && [ -n "$ORGANIZATION" ] && [ -
 		echo "------------"
 		echo "Requires curl command."
 		echo "Before proceeding, edit this script and add Organization, Access Token (as owner) and Username."
-		echo "Usage: ./github_migrator {backup, download, status, delete}"
-		echo "Eg. ./github_migrator --status"
+		echo "Usage: ./github-migrator {backup, download, status, delete}"
+		echo "Eg. ./github-migrator --status"
 		echo "Avoid running --backup more than once to avoid duplicates."
 	else 
 		echo "Please run with one of the arguments and by adding Organization, Access Token (as owner) and Username. Check --help for more details."
