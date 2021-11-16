@@ -23,11 +23,13 @@ v0.3 - add delete archive option.
 
 `./github-migrator --help`
 
-### Instructions
+## Instructions
 
 Edit github-migrator and add access token, organization name, and username. Provide execute permission and call the script from working directory.
 
 Available commands are backup, download, status and help. Avoid running backup more than once as it creates seperate intances of backup on server side.
+
+## Commands
 
 ### Help with instructions
 `./github-migrator --help`
@@ -49,7 +51,7 @@ Note: Do not run 'backup' more than once to avoid duplicates.
 This will delete all current backup migration archives from github.com end, useful to clean up after download, or to start anew.
 Alternately migration archives are automatically deleted after seven days.
 
-### Roadmap
+## Roadmap
 1. Add restore commands.
 2. Add clean up of archives on github end after backups. #done
 3. Accept token and username as arguments.
