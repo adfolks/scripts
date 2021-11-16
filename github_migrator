@@ -22,10 +22,10 @@ backup_status()
 
 if [ "$1" = "--backup" ] || [ "$1" = "backup" ]; then
 			echo "Initiating backup for all repositories in $ORGANIZATION, you can run github_migrator --status to check backup status. Please do not run --backup more than once to avoid duplicates."
-			for repo in `curl -s -H "Authorization: token $GITHUB_ACCESS_TOKEN" -H "Accept: application/vnd.github.v3+json" https://api.github.com/orgs/$ORGANIZATION/repos | grep '"full_name"' | awk '{print $2}' | cut -d'/' -f2 | cut -d'"' -f1`; do 
-				echo "Backing up $repo .."
-				curl -s -H "Authorization: token $GITHUB_ACCESS_TOKEN" -X POST -H "Accept: application/vnd.github.wyandotte-preview+json" -d'{"lock_repositories":false,"repositories":["'$ORGANIZATION'/'$repo'"]}' https://api.github.com/orgs/$ORGANIZATION/migrations
+			for repo in `curl -s -H "Authorization: token $GITHUB_ACCESS_TOKEN" -H "Accept: application/vnd.github.v3+json" https://api.github.com/orgs/$ORGANIZATION/repos | grep '"full_name"' | awk '{print $2}' | cut -d'/' -f2 | cut -d'"' -f1`; do
+					curl -s -H "Authorization: token $GITHUB_ACCESS_TOKEN" -X POST -H "Accept: application/vnd.github.wyandotte-preview+json" -d'{"lock_repositories":false,"repositories":["'$ORGANIZATION'/'$repo'"]}' https://api.github.com/orgs/$ORGANIZATION/migrations
 			done
+			backup_status
 	elif [ "$1" = "--download" ] || [ "$1" = "download" ]; then
 	 		backup_status > /dev/null
 			for url in `grep exported ./migration-status | awk '{print $3}'`; do
