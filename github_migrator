@@ -45,8 +45,8 @@ if [ "$1" = "--backup" ] || [ "$1" = "backup" ] && [ -n "$ORGANIZATION" ] && [ -
 	elif [ "$1" = "--delete" ] || [ "$1" = "status" ] && [ -n "$ORGANIZATION" ] && [ -n "$GITHUB_ACCESS_TOKEN" ] && [ -n "$GITHUB_USERNAME" ]; then
 		echo "Deleting all backup archives from github.com .."
 		backup_status >/dev/null 2>&1
-		for i in `cat ./migration-status | awk '{print $3}'`; do
-			curl -s -H "Authorization: token $GITHUB_ACCESS_TOKEN" -X DELETE -H "Accept: application/vnd.github.v3+json" $i
+		for archive in `cat ./migration-status | awk '{print $3}'`; do
+			curl -s -H "Authorization: token $GITHUB_ACCESS_TOKEN" -X DELETE -H "Accept: application/vnd.github.v3+json" $archive
 		done
 	elif [ "$1" = "--help" ] || [ "$1" = "help" ]; then
 		echo "Instructions"
