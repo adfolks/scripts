@@ -48,7 +48,8 @@ Note: Do not run 'backup' more than once to avoid duplicates.
 ### Delete all current backup archives from Github.com
 `./github-migrator --delete`
 
-This will delete all current backup migration archives from github.com end, useful to clean up after download, or to start anew.
+This will delete all current backup migration archives from github.com end, useful to clean up after download, or to start anew. 
+Repositories can still show as exported but without archive urls while running --status.
 Alternately migration archives are automatically deleted after seven days.
 
 ## Roadmap

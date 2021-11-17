@@ -43,7 +43,7 @@ if [ "$1" = "--backup" ] || [ "$1" = "backup" ] && [ -n "$ORGANIZATION" ] && [ -
 			done
 	elif [ "$1" = "--status" ] || [ "$1" = "status" ] && [ -n "$ORGANIZATION" ] && [ -n "$GITHUB_ACCESS_TOKEN" ] && [ -n "$GITHUB_USERNAME" ]; then backup_status	
 	elif [ "$1" = "--delete" ] || [ "$1" = "status" ] && [ -n "$ORGANIZATION" ] && [ -n "$GITHUB_ACCESS_TOKEN" ] && [ -n "$GITHUB_USERNAME" ]; then
-		echo "Deleting all backup archives from github.com .."
+		echo "Deleting and cleaning up all backup archives from github.com. Repositories can still show exported but without archive urls while running --status."
 		backup_status >/dev/null 2>&1
 		for archive in `cat ./migration-status | awk '{print $3}'`; do
 			curl -s -H "Authorization: token $GITHUB_ACCESS_TOKEN" -X DELETE -H "Accept: application/vnd.github.v3+json" $archive
