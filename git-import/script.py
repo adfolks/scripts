@@ -10,7 +10,8 @@ for repo in repoName:
     os.system('ghe-migrator map merge -i conflicts.csv -g'+guid)   
     os.system('ghe-migrator conflicts -g'+guid+' > conflicts.csv')  
     os.system('ghe-migrator map merge -i conflicts.csv -g'+guid)   
-    os.system('ghe-migrator import '+repo+' -g'+guid)
+    os.system('ghe-migrator import '+repo+' -g'+guid+'-u ssrcdevops -p' )
+    os.system('ghe-migrator unlock -g'+guid)
     
 
 
