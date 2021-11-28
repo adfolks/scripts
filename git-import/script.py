@@ -10,7 +10,9 @@ for repo in repoName:
     print("Preparation started for ",repo)
     os.system('ghe-migrator prepare '+repo+' > file.txt')   
     status,guid = sp.getstatusoutput("grep -i guid file.txt | awk '{print $3}'")
+    print("Conflict file generating for ",repo)
     os.system('ghe-migrator conflicts -g'+guid+' > conflicts.csv')  
+    print("Resolving conflict for ",repo)
     os.system('ghe-migrator map merge -i conflicts.csv -g'+guid)   
     os.system('ghe-migrator conflicts -g'+guid+' > conflicts.csv')  
     os.system('ghe-migrator map merge -i conflicts.csv -g'+guid)   
@@ -18,7 +20,7 @@ for repo in repoName:
     os.system('ghe-migrator import '+repo+' -g'+guid+' -u ssrcdevops -p' )
     print("Unlocking repo ",repo)
     os.system('ghe-migrator unlock -g'+guid)
-    os.system('echo'+repo+' '+guid+'>> guidfile.txt')
+    os.system('echo '+repo+' '+guid+'>> guidfile.txt')
     os.system('rm conflicts.csv file.txt')
 
 
