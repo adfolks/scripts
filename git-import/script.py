@@ -19,7 +19,7 @@ for repo in repoName:
     print("Importing repo ",repo)
     os.system('ghe-migrator import '+repo+' -g '+guid+' -u ssrcdevops -p' )
     print("Unlocking repo ",repo)
-    os.system('ghe-migrator unlock -g'+guid)
+    os.system('ghe-migrator unlock -g '+guid)
     os.system('echo '+repo+' '+guid+'>> guidfile.txt')
     os.system('rm conflicts.csv file.txt')
 
