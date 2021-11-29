@@ -3,11 +3,15 @@ import os
 # import commands
 import subprocess as sp
 repoName =glob.glob("*")
-
+totalRepo = len(repoName)
+print("*******************************")
+print(repoName)
+print("*******************************")
+i=0
 for repo in repoName:
     if(repo =="script.py"):
         continue
-    print("Preparation started for ",repo)
+    print(i,"-",totalRepo, "Preparation started for ",repo)
     os.system('ghe-migrator prepare '+repo+' > file.txt')   
     status,guid = sp.getstatusoutput("grep -i guid file.txt | awk '{print $3}'")
     print("Conflict file generating for ",repo)
@@ -18,13 +22,11 @@ for repo in repoName:
     os.system('ghe-migrator map merge -i conflicts.csv -g'+guid)   
     print("Importing repo ",repo)
     os.system('ghe-migrator import '+repo+' -g '+guid+' -u ssrcdevops -p' )
-    print("Unlocking repo ",repo)
+    print(i,"-",totalRepo,"Unlocking repo ",repo)
     os.system('ghe-migrator unlock -g '+guid)
     os.system('echo '+repo+' '+guid+'>> guidfile.txt')
     os.system('rm conflicts.csv file.txt')
-
-
-
+    i+=1
     
 
 
