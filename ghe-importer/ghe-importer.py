@@ -3,7 +3,7 @@ import os
 # import commands
 import subprocess as sp
 repoName =glob.glob("*")
-totalRepo = len(repoName)
+totalRepo = len(repoName) -1 
 print("*******************************")
 print(repoName)
 print("*******************************")
@@ -17,9 +17,11 @@ for repo in repoName:
     print("Conflict file generating for ",repo)
     os.system('ghe-migrator conflicts -g'+guid+' > conflicts.csv')  
     print("Resolving conflict for ",repo)
+    # Modify this the code below accroding to the requirement
     os.system('ghe-migrator map merge -i conflicts.csv -g'+guid)   
     os.system('ghe-migrator conflicts -g'+guid+' > conflicts.csv')  
     os.system('ghe-migrator map merge -i conflicts.csv -g'+guid)   
+    #Make sure that all the conflicts are resolved before this line
     print("Importing repo ",repo)
     os.system('ghe-migrator import '+repo+' -g '+guid+' -u ssrcdevops -p' )
     print(i,"-",totalRepo,"Unlocking repo ",repo)
@@ -27,10 +29,3 @@ for repo in repoName:
     os.system('echo '+repo+' '+guid+'>> guidfile.txt')
     os.system('rm conflicts.csv file.txt')
     i+=1
-    
-
-
-   
-
-
-
